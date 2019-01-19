@@ -1,0 +1,19 @@
+kind: pipeline
+name: mongodb_exporter
+
+steps:
+
+- name: build_mongodb_exporter
+  image: cycognito/drone-docker-builder:latest
+  pull: always
+  settings:
+    image: cycognito/percona_mdb_exporter
+    tag: latest
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    dockerfile: Dockerfile_new
+  volumes:
+  - name: docker
+    path: /var/run/
